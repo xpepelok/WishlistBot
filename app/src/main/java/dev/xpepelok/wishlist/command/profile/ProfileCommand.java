@@ -21,9 +21,7 @@ public class ProfileCommand {
     UserDataService userDataService;
     TelegramBot telegramBot;
 
-    @CommandHandler(
-            adminOnly = false
-    )
+    @CommandHandler(adminOnly = false)
     public void handle(User sender, long chat) {
         var fromID = sender.getId();
         var userData = userDataService.getUserData(fromID);

@@ -21,9 +21,7 @@ public class StartCommand {
     UserDataService userDataService;
     TelegramBot telegramBot;
 
-    @CommandHandler(
-            adminOnly = false
-    )
+    @CommandHandler(adminOnly = false)
     public void handle(User sender, long chat) {
         telegramBot.sendMessage(chat, CommandResponse.START_MESSAGE.getRawMessage());
     }

@@ -18,9 +18,7 @@ import org.telegram.telegrambots.meta.api.objects.User;
 public class IdCommand {
     TelegramBot telegramBot;
 
-    @CommandHandler(
-            adminOnly = false
-    )
+    @CommandHandler(adminOnly = false)
     public void handle(User sender, long chat) {
         telegramBot.sendMessage(chat, String.format("User ID: %s, chat ID: %s", sender.getId(), chat));
     }

@@ -20,9 +20,7 @@ import org.telegram.telegrambots.meta.api.objects.User;
 public class WishListCommand {
     WishListService wishListService;
 
-    @CommandHandler(
-            adminOnly = false
-    )
+    @CommandHandler(adminOnly = false)
     public void handle(User sender, long chat, String[] args) {
         if (args.length == 0) {
             wishListService.printWishes(sender.getId(), chat, 0);

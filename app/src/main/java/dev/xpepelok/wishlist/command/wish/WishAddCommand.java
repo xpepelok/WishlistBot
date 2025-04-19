@@ -27,9 +27,7 @@ public class WishAddCommand {
     UserDataService userDataService;
     TelegramBot telegramBot;
 
-    @CommandHandler(
-            adminOnly = false
-    )
+    @CommandHandler(adminOnly = false)
     public void handle(User sender, long chat, String[] args) {
         try {
             var reference = args[0];

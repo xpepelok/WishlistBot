@@ -25,9 +25,7 @@ public class HelpCommand {
     CommandRepository commandRepository;
     TelegramBot telegramBot;
 
-    @CommandHandler(
-            adminOnly = false
-    )
+    @CommandHandler(adminOnly = false)
     public void handle(User sender, long chat, String[] args) {
         long senderId = sender.getId();
         if (args.length == 0) {
