@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package wishlist.userdata;
+
+option java_package = "dev.xpepelok.wishlist.userdata.model";
+option java_multiple_files = true;
+
+message UserData {
+  int64 userID = 1;
+  repeated WishData wishes = 3;
+}
+
+message WishData {
+  bytes id = 1;
+  string name = 2;
+  string wish = 3;
+}

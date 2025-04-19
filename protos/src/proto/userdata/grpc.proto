@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package wishlist.userdata;
+
+option java_package = "dev.xpepelok.wishlist.userdata.grpc";
+option java_multiple_files = true;
+
+import "userdata/models.proto";
+
+service UserDataService {
+  rpc CreateUserData(CreateUserDataRequest) returns (CreateUserDataResponse);
+  rpc GetUserData(GetUserDataRequest) returns (GetUserDataResponse);
+  rpc RemoveWish(RemoveWishRequest) returns (RemoveWishResponse);
+  rpc AddWish(AddWishRequest) returns (AddWishResponse);
+}
+
+message CreateUserDataRequest {
+  int64 userID = 1;
+}
+
+message CreateUserDataResponse {
+  UserData data = 1;
+}
+
+message GetUserDataRequest {
+  int64 userID = 1;
+}
+
+message RemoveWishRequest {
+  bytes wishID = 1;
+}
+
+message RemoveWishResponse {
+
+}
+
+message GetUserDataResponse {
+  UserData data = 1;
+}
+
+message AddWishRequest {
+  int64 userID = 1;
+  WishData data = 2;
+}
+
+message AddWishResponse {
+
+}
