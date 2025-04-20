@@ -53,10 +53,12 @@ public class CommandServiceImpl implements CommandService {
         for (var command : commands) {
             var methods = command.getClass().getMethods();
             boolean hasMainHandler = false;
+
             for (var method : methods) {
                 if (initializeCommandHandler(command, method)) {
                     hasMainHandler = true;
                 }
+
                 initializeSubCommandHandlers(method);
             }
             if (!hasMainHandler) {
@@ -87,14 +89,12 @@ public class CommandServiceImpl implements CommandService {
     @Override
     public void executeCommand(String cmd, User sender, long chat) {
         var splitMsgArray = cmd.substring(1).split(" ");
-        if (splitMsgArray.length == 0) {
-            return;
-        }
+        if (splitMsgArray.length == 0) return;
+
         var subCmd = splitMsgArray[0];
         var command = commandRepository.getCommand(subCmd);
-        if (command == null) {
-            return;
-        }
+        if (command == null) return;
+
         // Если /<cmd>
         if (splitMsgArray.length == 1) {
             handleMainCommand(command, sender, chat, ArrayUtil.skip(splitMsgArray, 1));
@@ -109,9 +109,8 @@ public class CommandServiceImpl implements CommandService {
     private void handleMainCommand(Object command, User sender, long chatID, String... args) {
         var method = commandHandlerRepository.getCommandHandler(command);
         var handler = commandHandlerRepository.<CommandHandler>getCommandHandlerAnnotation(method);
-        if (handler.adminOnly() && !telegramBotProperties.isAdmin(sender.getId())) {
-            return;
-        }
+        if (handler.adminOnly() && !telegramBotProperties.isAdmin(sender.getId())) return;
+
         invokeMethod(method, command, sender, chatID, args);
     }
 
@@ -122,9 +121,8 @@ public class CommandServiceImpl implements CommandService {
         var handler = commandHandlerRepository.<SubCommandHandler>getCommandHandlerAnnotation(method);
         if (handler == null) return false;
 
-        if (handler.adminOnly() && !telegramBotProperties.isAdmin(sender.getId())) {
-            return true;
-        }
+        if (handler.adminOnly() && !telegramBotProperties.isAdmin(sender.getId())) return true;
+
 
         invokeMethod(method, command, sender, chatID, ArrayUtil.skip(args, 1));
         return true;

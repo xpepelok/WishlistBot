@@ -58,6 +58,7 @@ public class CallBackServiceImpl implements CallBackService {
     public void executeCallback(CallbackQuery callbackQuery, long chat) {
         var callbackData = callbackQuery.getData();
         if (callbackData.isEmpty()) return;
+
         var splitData = callbackData.split(":");
         var target = splitData[0];
         var callback = callbackRepository.getCallback(target);

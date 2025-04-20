@@ -22,10 +22,6 @@ public class WishListCommand {
 
     @CommandHandler(adminOnly = false)
     public void handle(User sender, long chat, String[] args) {
-        if (args.length == 0) {
-            wishListService.printWishes(sender.getId(), chat, 0);
-            return;
-        }
-        wishListService.printWishes(sender.getId(), chat, Integer.parseInt(args[0]));
+        wishListService.printWishes(sender.getId(), chat, args.length == 0 ? 0 : Integer.parseInt(args[0]));
     }
 }
